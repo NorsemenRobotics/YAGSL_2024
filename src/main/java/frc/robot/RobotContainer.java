@@ -69,13 +69,14 @@ public class RobotContainer
                                                           () -> driverXbox.getRightX(),
                                                           () -> driverXbox.getRightY());
 
+    // FIXME: changed driverXbox.getRawAxis from 2 to rotationXboxAxis
     AbsoluteFieldDrive closedFieldAbsoluteDrive = new AbsoluteFieldDrive(drivebase,
                                                                          () ->
                                                                              MathUtil.applyDeadband(driverXbox.getLeftY(),
                                                                                                     OperatorConstants.LEFT_Y_DEADBAND),
                                                                          () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
                                                                                                       OperatorConstants.LEFT_X_DEADBAND),
-                                                                         () -> driverXbox.getRawAxis(2));
+                                                                         () -> driverXbox.getRawAxis(rotationXboxAxis));
 
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
                                                                       () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
@@ -111,8 +112,9 @@ public class RobotContainer
 
 
  // FIXME: Replaced line to use CustomDrive3688      
- //   drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
-      drivebase.setDefaultCommand(customDrive3688);
+//  drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
+    drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
+ //     drivebase.setDefaultCommand(customDrive3688);
 
   }
 

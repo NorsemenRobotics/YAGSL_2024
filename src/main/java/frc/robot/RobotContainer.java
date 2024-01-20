@@ -113,8 +113,8 @@ public class RobotContainer
 
  // FIXME: Replaced line to use CustomDrive3688      
 //  drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
-    drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
- //     drivebase.setDefaultCommand(customDrive3688);
+ //   drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
+     drivebase.setDefaultCommand(customDrive3688);
 
   }
 

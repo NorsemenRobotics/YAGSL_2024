@@ -49,4 +49,10 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.01;
     public static final double TURN_CONSTANT = 0.75;
   }
+
+  public static class TestMotor
+  {
+    public static final int TEST_MOTOR_CAN_ID = 31;
+
+  }
 }

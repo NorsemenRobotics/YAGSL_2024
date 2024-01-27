@@ -108,12 +108,12 @@ public class RobotContainer
         () -> -driverController.getRawAxis(2), () -> true);
 
 //FIXME: Added CustomDrive3688
-// removed the Xbox controller inversions
+// reverted back to xBox controller inversions
     CustomDrive3688 customDrive3688 = new CustomDrive3688(
       drivebase,
-      () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-      () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-      () -> driverXbox.getRawAxis(rotationXboxAxis));
+      () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+      () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+      () -> -driverXbox.getRawAxis(rotationXboxAxis));
 
 
  // FIXME: Replaced line to use CustomDrive3688      
@@ -149,7 +149,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Path", true);
+    return drivebase.getAutonomousCommand("New New Path", true);
   }
 
   public void setDriveMode()

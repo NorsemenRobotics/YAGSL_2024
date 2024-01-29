@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
@@ -21,6 +22,7 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.TestMotor;
+import frc.robot.commands.RunTestMotor;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -41,7 +43,6 @@ public class RobotContainer
                                                                          "swerve"));
   //FIXME: Unsure if this is correct
   private final TestMotor testMotor = new TestMotor();
-  
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -52,7 +53,6 @@ public class RobotContainer
 
   //FIXME: Added rotationXboxAxis for CustomDrive3688
   private int rotationXboxAxis = 4;
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -60,19 +60,19 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindings();
-
+  
     AbsoluteDrive closedAbsoluteDrive = new AbsoluteDrive(drivebase,
                                                           // Applies deadbands and inverts controls because joysticks
                                                           // are back-right positive while robot
                                                           // controls are front-left positive
-                                                          () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
+                                                          () -> MathUtil.applyDeadband(-driverXbox.getLeftY(),
                                                                                        OperatorConstants.LEFT_Y_DEADBAND),
-                                                          () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
+                                                          () -> MathUtil.applyDeadband(-driverXbox.getLeftX(),
                                                                                        OperatorConstants.LEFT_X_DEADBAND),
 
                                                           //TODO: Verify that negation is correct
-                                                          () -> driverXbox.getRightX(),
-                                                          () -> driverXbox.getRightY());
+                                                          () -> -driverXbox.getRightX(),
+                                                          () -> -driverXbox.getRightY());
 
     // FIXME: changed driverXbox.getRawAxis from 2 to rotationXboxAxis
     AbsoluteFieldDrive closedFieldAbsoluteDrive = new AbsoluteFieldDrive(drivebase,
@@ -120,6 +120,7 @@ public class RobotContainer
 //  drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
  //   drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
      drivebase.setDefaultCommand(customDrive3688);
+     //drivebase.setDefaultCommand(closedAbsoluteDrive);
      
 
   }
@@ -138,7 +139,7 @@ public class RobotContainer
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
 //    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
-    new JoystickButton(driverXbox, 2).whileTrue(new RepeatCommand(new InstantCommand(testMotor::runMotor, testMotor)));
+    new JoystickButton(driverXbox, 2).whileTrue(new RunTestMotor(testMotor,0.5));
   }
 
   /**

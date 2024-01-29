@@ -93,7 +93,7 @@ public class CustomDrive3688 extends Command {
 
     // Make the robot move
     // FIXME: changed fieldRelative to false
-    swerve.drive(translation, rotationSpeed, false);
+    swerve.drive(translation, rotationSpeed, true);
   }
 
   // Called once the command ends or is interrupted.

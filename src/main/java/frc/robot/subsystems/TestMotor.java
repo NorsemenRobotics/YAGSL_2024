@@ -4,44 +4,40 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import com.revrobotics.REVLibError;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-public class TestMotor extends SubsystemBase {
+public class TestMotor extends SubsystemBase  {
   
     // create new m_test_motor
     private final CANSparkMax m_test_motor = new CANSparkMax(Constants.TestMotor.TEST_MOTOR_CAN_ID, MotorType.kBrushless);
     
- 
+    private double counter;
+    private double counterPer;
+    // I am not sure what this TestMotor() {} does (it's empty...?), but it is present in the wpilib documentation so I duplicated it.
+    // Maybe it is there to placehold for a call to require this whole class in a command?
+    public TestMotor(double someInput) {
+      
+    } 
+    public TestMotor() {
+      counter = 0;
+      m_test_motor.restoreFactoryDefaults();
+      m_test_motor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+    } 
 
-// I am not sure what this TestMotor() {} does (it's empty...?), but it is present in the wpilib documentation so I duplicated it.
-// Maybe it is there to placehold for a call to require this whole class in a command?
-public TestMotor() {} 
+    @Override
+    public void periodic()
+    {
+      counterPer = counterPer + 1;
+      SmartDashboard.putNumber("Test Motor Periodic", counterPer);
+    }
 
-  public Command initializeMotor() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return this.runOnce(
-            () -> m_test_motor.restoreFactoryDefaults())
-          .andThen(run(
-            () -> m_test_motor.setIdleMode(CANSparkMax.IdleMode.kCoast)))
-            .withName("Test Motor Configure");
-       }
-  
-  public Command runMotor() {
-    return this.run(
-      () -> m_test_motor.set(0.5))
-      .finallyDo(interrupted -> m_test_motor.set(0))
-      .withName("Test Motor On");
-  }
-
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    public void runMotor(double speed) {
+      counter = counter + 1;
+      SmartDashboard.putNumber("Test Motor", counter);
+      m_test_motor.set(speed);
+    }
 }

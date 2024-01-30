@@ -115,12 +115,23 @@ public class RobotContainer
       () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
       () -> -driverXbox.getRawAxis(rotationXboxAxis));
 
+//TODO: Added to test TeleopDrive code in robot-centric
+// This proved more controllable than CustomDrive3688; also, the 180-degree slowdown was gone
+    TeleopDrive testTeleopTwo = new TeleopDrive(
+        drivebase,
+        () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -driverXbox.getRawAxis(rotationXboxAxis), () -> true);
 
- // FIXME: Replaced line to use CustomDrive3688      
+
+
+      
+
+ // FIXME: Choose default command      
 //  drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
  //   drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
-     drivebase.setDefaultCommand(customDrive3688);
-     //drivebase.setDefaultCommand(closedAbsoluteDrive);
+  //   drivebase.setDefaultCommand(customDrive3688);
+     drivebase.setDefaultCommand(testTeleopTwo);
      
 
   }

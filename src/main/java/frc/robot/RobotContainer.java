@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDrive;
-import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
-import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+//import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
+//import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.TestMotor;
 import frc.robot.commands.RunTestMotor;
@@ -27,7 +27,7 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
 
-import frc.robot.commands.swervedrive.drivebase.CustomDrive3688;
+//import frc.robot.commands.swervedrive.drivebase.CustomDrive3688;
 
 
 /**
@@ -49,10 +49,10 @@ public class RobotContainer
   CommandJoystick driverController = new CommandJoystick(1);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  XboxController driverXbox = new XboxController(0);
+  XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
 
-  //FIXME: Added rotationXboxAxis for CustomDrive3688
-  private int rotationXboxAxis = 4;
+
+ // private int rotationXboxAxis = 4;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -60,7 +60,7 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindings();
-  
+  /*
     AbsoluteDrive closedAbsoluteDrive = new AbsoluteDrive(drivebase,
                                                           // Applies deadbands and inverts controls because joysticks
                                                           // are back-right positive while robot
@@ -70,11 +70,11 @@ public class RobotContainer
                                                           () -> MathUtil.applyDeadband(-driverXbox.getLeftX(),
                                                                                        OperatorConstants.LEFT_X_DEADBAND),
 
-                                                          //TODO: Verify that negation is correct
+                                                         
                                                           () -> -driverXbox.getRightX(),
                                                           () -> -driverXbox.getRightY());
 
-    // FIXME: changed driverXbox.getRawAxis from 2 to rotationXboxAxis
+
     AbsoluteFieldDrive closedFieldAbsoluteDrive = new AbsoluteFieldDrive(drivebase,
                                                                          () ->
                                                                              MathUtil.applyDeadband(driverXbox.getLeftY(),
@@ -107,7 +107,7 @@ public class RobotContainer
         () -> MathUtil.applyDeadband(driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
         () -> -driverController.getRawAxis(2), () -> true);
 
-//FIXME: Added CustomDrive3688
+
 // reverted back to xBox controller inversions
     CustomDrive3688 customDrive3688 = new CustomDrive3688(
       drivebase,
@@ -115,13 +115,20 @@ public class RobotContainer
       () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
       () -> -driverXbox.getRawAxis(rotationXboxAxis));
 
-//TODO: Added to test TeleopDrive code in robot-centric
+*/
+
+
+
+
+
+// Added to test TeleopDrive code in robot-centric
 // This proved more controllable than CustomDrive3688; also, the 180-degree slowdown was gone
-    TeleopDrive testTeleopTwo = new TeleopDrive(
+    TeleopDrive teleopRobotCentric = new TeleopDrive(
         drivebase,
         () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -driverXbox.getRawAxis(rotationXboxAxis), () -> true);
+        () -> -driverXbox.getRawAxis(Constants.OperatorConstants.DRIVER_ROTATION_AXIS), 
+        () -> false); // true = field-centric
 
 
 
@@ -131,7 +138,7 @@ public class RobotContainer
 //  drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
  //   drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
   //   drivebase.setDefaultCommand(customDrive3688);
-     drivebase.setDefaultCommand(testTeleopTwo);
+     drivebase.setDefaultCommand(teleopRobotCentric);
      
 
   }

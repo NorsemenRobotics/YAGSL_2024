@@ -48,6 +48,9 @@ public final class Constants
     public static final double LEFT_Y_DEADBAND = 0.01;
     public static final double RIGHT_X_DEADBAND = 0.01;
     public static final double TURN_CONSTANT = 0.75;
+
+    public static final int DRIVER_USB_PORT = 0;
+    public static final int DRIVER_ROTATION_AXIS = 4;
   }
 
   public static class TestMotor

@@ -46,7 +46,7 @@ public class RobotContainer
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  CommandJoystick driverController = new CommandJoystick(1);
+  CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
@@ -134,7 +134,7 @@ public class RobotContainer
 
       
 
- // FIXME: Choose default command      
+    
 //  drivebase.setDefaultCommand(!RobotBase.isSimulation() ? closedAbsoluteDrive : closedFieldAbsoluteDrive);
  //   drivebase.setDefaultCommand(closedFieldAbsoluteDrive);
   //   drivebase.setDefaultCommand(customDrive3688);
@@ -157,7 +157,7 @@ public class RobotContainer
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
 //    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
-    new JoystickButton(driverXbox, 2).whileTrue(new RunTestMotor(testMotor,0.5));
+    new JoystickButton(driverXbox, 2).whileTrue(new RunTestMotor(testMotor)); 
 
   }
 
@@ -169,6 +169,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
+    // was crashing code referencing path only; had to use pathplanner Autos to create command to follow path
     return drivebase.getAutonomousCommand("New Auto");
   }
 

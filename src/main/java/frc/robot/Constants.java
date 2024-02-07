@@ -50,6 +50,7 @@ public final class Constants
     public static final double TURN_CONSTANT = 0.75;
 
     public static final int DRIVER_USB_PORT = 0;
+    public static final int SHOOTER_USB_PORT = 1;
     public static final int DRIVER_ROTATION_AXIS = 4;
   }
 

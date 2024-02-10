@@ -15,6 +15,7 @@ public class TestMotor extends SubsystemBase  {
   
     // create new m_test_motor
     private final CANSparkMax m_test_motor = new CANSparkMax(Constants.TestMotor.TEST_MOTOR_CAN_ID, MotorType.kBrushless);
+    private final CANSparkMax m_test_motor2 = new CANSparkMax(Constants.TestMotor.TEST_MOTOR2_CAN_ID, MotorType.kBrushless);
 
     CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
@@ -31,6 +32,9 @@ public class TestMotor extends SubsystemBase  {
       //counter = 0;
       m_test_motor.restoreFactoryDefaults();
       m_test_motor.setIdleMode(CANSparkMax.IdleMode.kCoast);
+      m_test_motor2.restoreFactoryDefaults();
+      m_test_motor2.setIdleMode(CANSparkMax.IdleMode.kCoast);
+
     } 
 
     @Override
@@ -45,10 +49,12 @@ public class TestMotor extends SubsystemBase  {
       //SmartDashboard.putNumber("Test Motor", counter);
       joystickTestMotorControlInput = shooterController.getRawAxis(3);
       m_test_motor.set(joystickTestMotorControlInput);
+      m_test_motor2.set(-joystickTestMotorControlInput);
       SmartDashboard.putNumber("Test Motor Speed", joystickTestMotorControlInput);
     }
 
     public void stopMotor(){
       m_test_motor.set(0);
+      m_test_motor2.set(0);
     }
 }

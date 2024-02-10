@@ -57,6 +57,7 @@ public final class Constants
   public static class TestMotor
   {
     public static final int TEST_MOTOR_CAN_ID = 31;
+    public static final int TEST_MOTOR2_CAN_ID = 32;
 
   }
 }

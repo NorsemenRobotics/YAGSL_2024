@@ -54,10 +54,12 @@ public final class Constants
     public static final int DRIVER_ROTATION_AXIS = 4;
   }
 
-  public static class TestMotor
+  public static class MotorConstants
   {
-    public static final int TEST_MOTOR_CAN_ID = 31;
-    public static final int TEST_MOTOR2_CAN_ID = 32;
+    public static final int FRONT_INTAKE_MOTOR_CAN_ID = 31;
+    public static final int BACK_INTAKE_MOTOR_CAN_ID = 32;
+
+    public static final int INTAKE_MOTOR_CURRENT_LIMIT = 20;
 
   }
 }

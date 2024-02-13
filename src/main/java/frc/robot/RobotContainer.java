@@ -22,8 +22,8 @@ import frc.robot.Constants.OperatorConstants;
 //import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 //import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
-import frc.robot.subsystems.TestMotor;
-import frc.robot.commands.RunTestMotor;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -42,7 +42,7 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve"));
-  private final TestMotor testMotor = new TestMotor();
+  private final IntakeSubsystem intakeMotors = new IntakeSubsystem();
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -157,7 +157,7 @@ public class RobotContainer
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
 //    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
-    new JoystickButton(driverXbox, 2).whileTrue(new RunTestMotor(testMotor)); 
+    new JoystickButton(driverXbox, 2).whileTrue(new RunIntake(intakeMotors)); 
 
   }
 

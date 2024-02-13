@@ -6,38 +6,32 @@ package frc.robot.commands;
 
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.TestMotor;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class RunTestMotor extends Command {
+public class RunIntake extends Command {
   
-  private final TestMotor m_TestMotor;
-  // private double counter;
-  // private double motorSpeed;
-    public RunTestMotor(TestMotor subsystem) {
-        m_TestMotor = subsystem;
-       // motorSpeed = speed;
-        addRequirements(m_TestMotor);
+  private final IntakeSubsystem m_IntakeMotors;
+
+    public RunIntake(IntakeSubsystem subsystem) {
+        m_IntakeMotors = subsystem;
+           addRequirements(m_IntakeMotors);
     }
   
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-     // counter = 0;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-    // counter = counter + 1;
-    //  SmartDashboard.putNumber("Test Motor Command", counter);
-      m_TestMotor.runMotor();
+      m_IntakeMotors.runIntakeMotors();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-      //added to turn motor off at end of command
-      m_TestMotor.stopMotor();
+      m_IntakeMotors.stopIntakeMotors();
     }
 
     // Returns true when the command should end.

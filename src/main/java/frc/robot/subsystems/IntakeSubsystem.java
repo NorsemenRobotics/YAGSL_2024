@@ -33,10 +33,14 @@ public class IntakeSubsystem extends SubsystemBase  {
       m_frontIntake_motor.restoreFactoryDefaults();
       m_frontIntake_motor.setIdleMode(CANSparkMax.IdleMode.kCoast);
       m_frontIntake_motor.setSmartCurrentLimit(Constants.MotorConstants.INTAKE_MOTOR_CURRENT_LIMIT);
+      m_frontIntake_motor.burnFlash();
+
       m_backIntake_motor.restoreFactoryDefaults();
       m_backIntake_motor.setIdleMode(CANSparkMax.IdleMode.kCoast);
       m_backIntake_motor.setSmartCurrentLimit(Constants.MotorConstants.INTAKE_MOTOR_CURRENT_LIMIT);
+      m_backIntake_motor.burnFlash();
 
+      System.out.println("*** intake motor controllers configured.");
     } 
 
     @Override

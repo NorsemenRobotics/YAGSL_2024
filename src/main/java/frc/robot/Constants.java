@@ -9,7 +9,7 @@ import com.pathplanner.lib.util.PIDConstants;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
-import swervelib.parser.PIDFConfig;
+//import swervelib.parser.PIDFConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean constants. This
@@ -58,8 +58,11 @@ public final class Constants
   {
     public static final int FRONT_INTAKE_MOTOR_CAN_ID = 31;
     public static final int BACK_INTAKE_MOTOR_CAN_ID = 32;
-
     public static final int INTAKE_MOTOR_CURRENT_LIMIT = 20;
+
+    public static final int LEFT_SHOOTER_MOTOR_CAN_ID = 33;
+    public static final int RIGHT_SHOOTER_MOTOR_CAN_ID = 34;
+    public static final int SHOOTER_MOTOR_CURRENT_LIMIT = 20;
 
   }
 }

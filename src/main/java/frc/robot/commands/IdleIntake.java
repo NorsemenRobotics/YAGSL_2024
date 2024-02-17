@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class RunShooter extends Command {
+public class IdleIntake extends Command {
 
-  private final ShooterSubsystem m_ShooterMotors;
+  private final IntakeSubsystem m_IntakeMotors;
 
-  /** Creates a new RunShooter. */
-  public RunShooter(ShooterSubsystem subsystem) {
-    m_ShooterMotors = subsystem;
-      addRequirements(m_ShooterMotors);
-  }
+  /** Creates a new IdleIntake. */
+  public IdleIntake(IntakeSubsystem subsystem) {
+        m_IntakeMotors = subsystem;
+           addRequirements(m_IntakeMotors);
+    }
 
   // Called when the command is initially scheduled.
   @Override
@@ -24,13 +24,13 @@ public class RunShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterMotors.runShooterMotors(-0.3);
+    m_IntakeMotors.idleIntakeMotors(0.1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ShooterMotors.stopShooterMotors();
+    m_IntakeMotors.stopIntakeMotors();
   }
 
   // Returns true when the command should end.

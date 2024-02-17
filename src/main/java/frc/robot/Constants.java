@@ -64,5 +64,8 @@ public final class Constants
     public static final int RIGHT_SHOOTER_MOTOR_CAN_ID = 34;
     public static final int SHOOTER_MOTOR_CURRENT_LIMIT = 20;
 
+    public static final int MAGAZINE_MOTOR_CAN_ID = 35;
+    public static final int MAGAZINE_MOTOR_CURRENT_LIMIT = 20;
+
   }
 }

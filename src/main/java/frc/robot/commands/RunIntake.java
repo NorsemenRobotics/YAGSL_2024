@@ -13,7 +13,7 @@ public class RunIntake extends Command {
   private final IntakeSubsystem m_IntakeMotors;
 
     public RunIntake(IntakeSubsystem subsystem) {
-        m_IntakeMotors = subsystem;
+      m_IntakeMotors = subsystem;
            addRequirements(m_IntakeMotors);
     }
   

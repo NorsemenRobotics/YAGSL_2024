@@ -6,10 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+//>>>>import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+//import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 
 public class IntakeSubsystem extends SubsystemBase  {
   
@@ -17,9 +18,9 @@ public class IntakeSubsystem extends SubsystemBase  {
     private final CANSparkMax m_frontIntake_motor = new CANSparkMax(Constants.MotorConstants.FRONT_INTAKE_MOTOR_CAN_ID, MotorType.kBrushless);
     private final CANSparkMax m_backIntake_motor = new CANSparkMax(Constants.MotorConstants.BACK_INTAKE_MOTOR_CAN_ID, MotorType.kBrushless);
 
-    CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
+    //>>>>CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
-    private double joystickIntakeMotorControlInput;
+    //>>>>private double joystickIntakeMotorControlInput;
     
   
     // I am not sure what this TestMotor() {} does (it's empty...?), but it is present in the wpilib documentation so I duplicated it.
@@ -49,14 +50,20 @@ public class IntakeSubsystem extends SubsystemBase  {
     }
 
     public void runIntakeMotors() {
-      joystickIntakeMotorControlInput = shooterController.getRawAxis(3);
-      m_frontIntake_motor.set(joystickIntakeMotorControlInput);
-      m_backIntake_motor.set(-joystickIntakeMotorControlInput);
-      SmartDashboard.putNumber("Test Motor Speed", joystickIntakeMotorControlInput);
+     // joystickIntakeMotorControlInput = shooterController.getRawAxis(3);
+      m_frontIntake_motor.set(0.78);
+      m_backIntake_motor.set(-0.78);
+     // SmartDashboard.putNumber("Test Motor Speed", joystickIntakeMotorControlInput);
     }
 
     public void stopIntakeMotors(){
       m_frontIntake_motor.set(0);
       m_backIntake_motor.set(0);
+    }
+
+    public void idleIntakeMotors(double intakeVelocity){
+      m_frontIntake_motor.set(intakeVelocity);
+      m_backIntake_motor.set(intakeVelocity);
+
     }
 }

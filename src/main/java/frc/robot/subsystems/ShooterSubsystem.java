@@ -8,12 +8,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class ShooterSubsystem extends SubsystemBase {
 private final CANSparkMax m_leftShooter_motor = new CANSparkMax(Constants.MotorConstants.LEFT_SHOOTER_MOTOR_CAN_ID, MotorType.kBrushless);
 private final CANSparkMax m_rightShooter_motor = new CANSparkMax(Constants.MotorConstants.RIGHT_SHOOTER_MOTOR_CAN_ID, MotorType.kBrushless);
+
+CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
+private double joystickMotorControlInput;
 
   /** Creates a new ShooterSubsystem. */
   public ShooterSubsystem() {
@@ -37,8 +41,10 @@ private final CANSparkMax m_rightShooter_motor = new CANSparkMax(Constants.Motor
   }
 
   public void runShooterMotors(double shooter_motor_speed) {
-    m_leftShooter_motor.set(shooter_motor_speed);
-    m_rightShooter_motor.set(-shooter_motor_speed);
+    joystickMotorControlInput = shooterController.getRawAxis(3);
+    m_leftShooter_motor.set(joystickMotorControlInput);
+    m_rightShooter_motor.set(-joystickMotorControlInput);
+    SmartDashboard.putNumber("Test Motor Speed", joystickMotorControlInput);
   }
 
   public void stopShooterMotors() {

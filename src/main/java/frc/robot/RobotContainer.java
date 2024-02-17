@@ -23,8 +23,11 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.RunIntake;
+import frc.robot.commands.IdleIntake;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.RunShooter;
+import frc.robot.subsystems.MagazineSubsystem;
+import frc.robot.commands.RunMagazine;
 
 import java.io.File;
 
@@ -46,6 +49,8 @@ public class RobotContainer
   private final IntakeSubsystem intakeMotors = new IntakeSubsystem();
 
   private final ShooterSubsystem shooterMotors = new ShooterSubsystem();
+
+  private final MagazineSubsystem magazineMotors = new MagazineSubsystem();
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -74,13 +79,15 @@ public class RobotContainer
         () -> -driverXbox.getRawAxis(Constants.OperatorConstants.DRIVER_ROTATION_AXIS), 
         () -> false); // true = field-centric
 
+//TODO all of the joystick inputs are here, can the teleopRobotCentric take boolean from button, and intake from getLeftX()
 
-
-      
+   //IdleIntake idleIntake = new IdleIntake(intakeMotors);
 
     
 
      drivebase.setDefaultCommand(teleopRobotCentric);
+
+     //intakeMotors.setDefaultCommand(idleIntake);
      
 
   }
@@ -99,8 +106,8 @@ public class RobotContainer
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
     new JoystickButton(driverXbox, 2).whileTrue(new RunIntake(intakeMotors)); 
-    new JoystickButton(driverXbox, 4).whileTrue(new RunShooter(shooterMotors)); 
-
+    new JoystickButton(driverXbox, 6).whileTrue(new RunShooter(shooterMotors)); 
+    new JoystickButton(driverXbox, 5).whileTrue(new RunMagazine(magazineMotors));
   }
 
   /**

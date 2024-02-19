@@ -5,12 +5,17 @@
 package frc.robot.commands.swervedrive.drivebase;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
+
+//import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * An example command that uses an example subsystem.
@@ -24,6 +29,10 @@ public class TeleopDrive extends Command
   private final DoubleSupplier   omega;
   private final BooleanSupplier  driveMode;
   private final SwerveController controller;
+
+  private boolean driveFieldCentric;
+
+  GenericHID shooterController = new GenericHID(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
   /**
    * Creates a new ExampleCommand.
@@ -61,11 +70,17 @@ public class TeleopDrive extends Command
     SmartDashboard.putNumber("vY", yVelocity);
     SmartDashboard.putNumber("omega", angVelocity);
 
+    driveFieldCentric = shooterController.getRawButton(9);
+
     // Drive using raw values.
     //TODO: Possibly read controller button here and input the boolean for field relative
+    //swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
+    //             angVelocity * controller.config.maxAngularVelocity,
+    //             driveMode.getAsBoolean());
+
     swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
                  angVelocity * controller.config.maxAngularVelocity,
-                 driveMode.getAsBoolean());
+                 driveFieldCentric);
   }
 
   // Called once the command ends or is interrupted.

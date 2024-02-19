@@ -36,6 +36,9 @@ import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.Wait;
 import frc.robot.commands.ShootMagazine;
 
+import edu.wpi.first.cameraserver.CameraServer;
+
+
 import java.io.File;
 
 
@@ -58,10 +61,16 @@ public class RobotContainer
   private final ShooterSubsystem shooterMotors = new ShooterSubsystem();
 
   private final MagazineSubsystem magazineMotors = new MagazineSubsystem();
+  
+  
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
+
+  // Creates UsbCamera and MjpegServer [1] and connects them
+  
+
 
   GenericHID shooterController = new GenericHID(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
@@ -75,6 +84,10 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    
+    // Creates UsbCamera and MjpegServer and connects them
+    CameraServer.startAutomaticCapture();
+    
     // Configure the trigger bindings
     configureBindings();
   

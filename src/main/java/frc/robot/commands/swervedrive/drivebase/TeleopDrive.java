@@ -73,7 +73,6 @@ public class TeleopDrive extends Command
     driveFieldCentric = shooterController.getRawButton(9);
 
     // Drive using raw values.
-    //TODO: Possibly read controller button here and input the boolean for field relative
     //swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),
     //             angVelocity * controller.config.maxAngularVelocity,
     //             driveMode.getAsBoolean());

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -28,6 +30,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.MagazineSubsystem;
 import frc.robot.commands.RunMagazine;
+import frc.robot.commands.StageMagazine;
+import frc.robot.commands.StopShooter;
+import frc.robot.commands.ShootSpeaker;
+import frc.robot.commands.Wait;
+import frc.robot.commands.ShootMagazine;
 
 import java.io.File;
 
@@ -54,7 +61,9 @@ public class RobotContainer
 
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
+  //CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
+
+  GenericHID shooterController = new GenericHID(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
@@ -105,9 +114,16 @@ public class RobotContainer
 
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
     new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
-    new JoystickButton(driverXbox, 2).whileTrue(new RunIntake(intakeMotors)); 
-    new JoystickButton(driverXbox, 6).whileTrue(new RunShooter(shooterMotors)); 
-    new JoystickButton(driverXbox, 5).whileTrue(new RunMagazine(magazineMotors));
+
+    new JoystickButton(shooterController, 4).whileTrue(new RunIntake(intakeMotors)
+                                                      .alongWith(new RunMagazine(magazineMotors))
+                                                                                ); 
+    new JoystickButton(shooterController, 5).onTrue(new StageMagazine(magazineMotors) // position note down -- built in timer
+                                                      .andThen(new ShootSpeaker(shooterMotors)) // spin up shooter motors -- built in timer
+                                                      
+                                                      .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer
+                                                      .andThen(new StopShooter(shooterMotors))  // stop shooter motors
+                                                                                ); 
   }
 
   /**

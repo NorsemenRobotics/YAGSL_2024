@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //>>>>import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants;
@@ -51,8 +51,8 @@ public class IntakeSubsystem extends SubsystemBase  {
 
     public void runIntakeMotors() {
      // joystickIntakeMotorControlInput = shooterController.getRawAxis(3);
-      m_frontIntake_motor.set(0.78);
-      m_backIntake_motor.set(-0.78);
+      m_frontIntake_motor.set(Constants.MotorConstants.INTAKE_INTAKE_SPEED);
+      m_backIntake_motor.set(-Constants.MotorConstants.INTAKE_INTAKE_SPEED);
      // SmartDashboard.putNumber("Test Motor Speed", joystickIntakeMotorControlInput);
     }
 

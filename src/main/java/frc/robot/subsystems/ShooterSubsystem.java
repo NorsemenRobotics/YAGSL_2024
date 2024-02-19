@@ -41,10 +41,8 @@ private double joystickMotorControlInput;
   }
 
   public void runShooterMotors(double shooter_motor_speed) {
-    joystickMotorControlInput = shooterController.getRawAxis(3);
-    m_leftShooter_motor.set(joystickMotorControlInput);
-    m_rightShooter_motor.set(-joystickMotorControlInput);
-    SmartDashboard.putNumber("Test Motor Speed", joystickMotorControlInput);
+    m_leftShooter_motor.set(-shooter_motor_speed);
+    m_rightShooter_motor.set(shooter_motor_speed);
   }
 
   public void stopShooterMotors() {

@@ -67,5 +67,17 @@ public final class Constants
     public static final int MAGAZINE_MOTOR_CAN_ID = 35;
     public static final int MAGAZINE_MOTOR_CURRENT_LIMIT = 20;
 
+    public static final double MAGAZINE_INTAKE_SPEED = 0.78;          
+    public static final double MAGAZINE_STAGE_SPEED = -0.2;           //back off note speed
+    public static final long MAGAZINE_STAGE_RUN_TIME_MS = 150;        //time of backing off note
+    public static final long MAGAZINE_SHOOT_RUN_TIME_MS = 1000;       //time of shooting note
+    public static final double MAGAZINE_FEED_TO_SHOOTER_SPEED = 0.78; //speed to feed note to shooter
+
+    public static final double SPEAKER_SHOOT_SPEED = 0.63; // was 0.63
+
+    public static final double INTAKE_INTAKE_SPEED = 0.78;            //pickup off the floor
+
+    public static final long SHOOTER_SPOOLUP_WAIT_TIME_MS = 1000;
+
   }
 }

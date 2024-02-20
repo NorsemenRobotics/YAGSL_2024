@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.Constants;
+
 
 public class StopShooter extends Command {
   /** Creates a new SetShooter. */

@@ -2,24 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-//FIXME: This command runs the shooter motors; note that the speed is set in the subsystem.  Also, the subsystem overrides the speed with joystick.
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-//import frc.robot.Constants;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class RunShooter extends Command {
+public class PukeIntake extends Command {
 
-  private final ShooterSubsystem m_ShooterMotors;
+  private final IntakeSubsystem m_IntakeMotors;
+  /** Creates a new PukeIntake. */
   
-
-
-  /** Creates a new RunShooter. */
-  public RunShooter(ShooterSubsystem subsystem) {
-    m_ShooterMotors = subsystem;
-      addRequirements(m_ShooterMotors);
+  public PukeIntake(IntakeSubsystem subsystem) {
+    m_IntakeMotors = subsystem;
+    addRequirements(m_IntakeMotors);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +25,13 @@ public class RunShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterMotors.runShooterMotors(-0.3);
+    m_IntakeMotors.pukeIntakeMotors();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_ShooterMotors.stopShooterMotors();
+    m_IntakeMotors.stopIntakeMotors();
   }
 
   // Returns true when the command should end.

@@ -27,7 +27,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.IdleIntake;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.MagazineSubsystem;
 import frc.robot.commands.RunMagazine;
 import frc.robot.commands.StageMagazine;
@@ -35,6 +34,7 @@ import frc.robot.commands.StopShooter;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.Wait;
 import frc.robot.commands.ShootMagazine;
+import frc.robot.commands.PukeIntake;
 
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -101,7 +101,7 @@ public class RobotContainer
         () -> -driverXbox.getRawAxis(Constants.OperatorConstants.DRIVER_ROTATION_AXIS), 
         () -> false); // true = field-centric
 
-//TODO all of the joystick inputs are here, can the teleopRobotCentric take boolean from button, and intake from getLeftX()
+//TODO all of the joystick inputs are here, can the intake from getLeftX()
 
    //IdleIntake idleIntake = new IdleIntake(intakeMotors);
 
@@ -126,17 +126,21 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
+
     new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     new JoystickButton(shooterController, 4).whileTrue(new RunIntake(intakeMotors)
                                                       .alongWith(new RunMagazine(magazineMotors))
                                                                                 ); 
+
     new JoystickButton(shooterController, 5).onTrue(new StageMagazine(magazineMotors) // position note down -- built in timer
                                                       .andThen(new ShootSpeaker(shooterMotors)) // spin up shooter motors -- built in timer
                                                       
                                                       .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer
                                                       .andThen(new StopShooter(shooterMotors))  // stop shooter motors
                                                                                 ); 
+
+    new JoystickButton(shooterController,1).whileTrue(new PukeIntake(intakeMotors));  //reverses intake motors
   }
 
   /**

@@ -51,19 +51,24 @@ public class IntakeSubsystem extends SubsystemBase  {
 
     public void runIntakeMotors() {
      // joystickIntakeMotorControlInput = shooterController.getRawAxis(3);
-      m_frontIntake_motor.set(Constants.MotorConstants.INTAKE_INTAKE_SPEED);
-      m_backIntake_motor.set(-Constants.MotorConstants.INTAKE_INTAKE_SPEED);
+      m_frontIntake_motor.setVoltage(Constants.MotorConstants.INTAKE_INTAKE_VOLTS);
+      m_backIntake_motor.setVoltage(-Constants.MotorConstants.INTAKE_INTAKE_VOLTS);
      // SmartDashboard.putNumber("Test Motor Speed", joystickIntakeMotorControlInput);
     }
 
     public void stopIntakeMotors(){
-      m_frontIntake_motor.set(0);
-      m_backIntake_motor.set(0);
+      m_frontIntake_motor.setVoltage(0);
+      m_backIntake_motor.setVoltage(0);
     }
 
     public void idleIntakeMotors(double intakeVelocity){
       m_frontIntake_motor.set(intakeVelocity);
       m_backIntake_motor.set(intakeVelocity);
 
+    }
+
+    public void pukeIntakeMotors(){
+      m_frontIntake_motor.setVoltage(-Constants.MotorConstants.INTAKE_PUKE_VOLTS);
+      m_backIntake_motor.setVoltage(Constants.MotorConstants.INTAKE_PUKE_VOLTS);
     }
 }

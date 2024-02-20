@@ -75,9 +75,19 @@ public final class Constants
 
     public static final double SPEAKER_SHOOT_SPEED = 0.63; // was 0.63
 
-    public static final double INTAKE_INTAKE_SPEED = 0.78;            //pickup off the floor
+    public static final double INTAKE_INTAKE_VOLTS = 9.3;            //pickup off the floor
+    public static final double INTAKE_PUKE_VOLTS = 9.3; 
 
     public static final long SHOOTER_SPOOLUP_WAIT_TIME_MS = 1000;
 
   }
+
+public static class ServoConstants
+{
+  public static final int DEFLECTOR_SERVO_PORT = 0;
+  public static final double DEFLECTOR_SERVO_ON_ANGLE = 80;
+  public static final double DEFLECTOR_SERVO_OFF_ANGLE = 60;
+
+}
+
 }

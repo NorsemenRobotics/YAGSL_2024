@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -75,7 +76,9 @@ public class RobotContainer
   GenericHID shooterController = new GenericHID(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
+  //XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
+
+  CommandJoystick driverController = new CommandJoystick(Constants.OperatorConstants.DRIVER_USB_PORT);
 
 
  // private int rotationXboxAxis = 4;
@@ -96,9 +99,9 @@ public class RobotContainer
 // This proved more controllable than CustomDrive3688; also, the 180-degree slowdown was gone
     TeleopDrive teleopRobotCentric = new TeleopDrive(
         drivebase,
-        () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -driverXbox.getRawAxis(Constants.OperatorConstants.DRIVER_ROTATION_AXIS), 
+        () -> MathUtil.applyDeadband(-driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> MathUtil.applyDeadband(-driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
+        () -> -driverController.getRawAxis(2), 
         () -> false); // true = field-centric
 
 //TODO all of the joystick inputs are here, can the intake from getLeftX()
@@ -125,9 +128,9 @@ public class RobotContainer
   {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
+    //new JoystickButton(driverController, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
 
-    new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
+    //new JoystickButton(driverController, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     new JoystickButton(shooterController, 4).whileTrue(new RunIntake(intakeMotors)
                                                       .alongWith(new RunMagazine(magazineMotors))

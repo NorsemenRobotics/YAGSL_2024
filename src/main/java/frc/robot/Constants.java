@@ -74,6 +74,10 @@ public final class Constants
     public static final double MAGAZINE_FEED_TO_SHOOTER_VOLTS = 9.5; //speed to feed note to shooter
 
     public static final double SPEAKER_SHOOT_SPEED = 0.63; // was 0.63
+    public static final double SPEAKER_SHOOT_VELOCITY = 5000;
+    public static final double SPEAKER_SHOOT_VOLTAGE = 7.6;
+
+    public static final double AMP_SHOOT_VELOCITY = 2000;
 
     public static final double INTAKE_INTAKE_VOLTS = 9.3;            //pickup off the floor
     public static final double INTAKE_PUKE_VOLTS = 9.3; 
@@ -88,6 +92,18 @@ public static class ServoConstants
   public static final double DEFLECTOR_SERVO_ON_ANGLE = 130; // 100 is about parallel; increasing degrees bring deflector more toward shooter
   public static final double DEFLECTOR_SERVO_OFF_ANGLE = 0;
 
+}
+
+public static class ShooterPIDConstants
+{
+  public static final double SHOOTER_PID_kP = 6e-5; 
+  public static final double SHOOTER_PID_kI = 0;
+  public static final double SHOOTER_PID_kD = 0; 
+  public static final double SHOOTER_PID_kIz = 0; 
+  public static final double SHOOTER_PID_kFF = 0.000015; 
+  public static final double SHOOTER_PID_kMaxOutput = 1; 
+  public static final double SHOOTER_PID_kMinOutput = -1;
+  public static final double SHOOTER_PID_maxRPM = 5700;
 }
 
 }

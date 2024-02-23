@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants;
 
-public class ShootSpeaker extends Command {
+public class ShootAmp extends Command {
   /** Creates a new SetShooter. */
   private final ShooterSubsystem m_ShooterMotors;
 
@@ -20,7 +20,7 @@ public class ShootSpeaker extends Command {
   protected double time;  // variable to store current time
 
 
-  public ShootSpeaker(ShooterSubsystem subsystem) {   
+  public ShootAmp(ShooterSubsystem subsystem) {   
     m_ShooterMotors = subsystem;
     addRequirements(m_ShooterMotors);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,7 +37,7 @@ public class ShootSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterMotors.runShooterMotorsRPM(Constants.MotorConstants.SPEAKER_SHOOT_VELOCITY);
+    m_ShooterMotors.runShooterMotorsRPM(Constants.MotorConstants.AMP_SHOOT_VELOCITY);
   }
 
   // Called once the command ends or is interrupted.
@@ -50,3 +50,4 @@ public class ShootSpeaker extends Command {
     return System.currentTimeMillis() >= endTime;  //should return true when timeinMillis has expired
   }
 }
+

@@ -31,15 +31,15 @@ public class MagazineSubsystem extends SubsystemBase {
   }
 
   public void runMagazineMotor() {
-      m_magazine_motor.set(Constants.MotorConstants.MAGAZINE_INTAKE_SPEED);
+      m_magazine_motor.setVoltage(Constants.MotorConstants.MAGAZINE_INTAKE_VOLTS);
     }
 
-  public void setMagazineMotor(double setSpeed){
-    m_magazine_motor.set(setSpeed);
+  public void setMagazineMotor(double setVoltage){
+    m_magazine_motor.setVoltage(setVoltage);
   }
 
     public void stopMagazineMotor(){
-      m_magazine_motor.set(0);
+      m_magazine_motor.setVoltage(0);
     }
 
 

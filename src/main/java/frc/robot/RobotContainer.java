@@ -30,12 +30,15 @@ import frc.robot.commands.IdleIntake;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.MagazineSubsystem;
 import frc.robot.commands.RunMagazine;
+import frc.robot.commands.ServoDeflectorOn;
+import frc.robot.commands.ServoDeflectorOff;
 import frc.robot.commands.StageMagazine;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.Wait;
 import frc.robot.commands.ShootMagazine;
 import frc.robot.commands.PukeIntake;
+import frc.robot.subsystems.ServoSubsystem;
 
 import edu.wpi.first.cameraserver.CameraServer;
 
@@ -62,6 +65,8 @@ public class RobotContainer
   private final ShooterSubsystem shooterMotors = new ShooterSubsystem();
 
   private final MagazineSubsystem magazineMotors = new MagazineSubsystem();
+
+  private final ServoSubsystem servoMotor = new ServoSubsystem();
   
   
 
@@ -78,10 +83,8 @@ public class RobotContainer
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   //XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
 
-  CommandJoystick driverController = new CommandJoystick(Constants.OperatorConstants.DRIVER_USB_PORT);
+  Joystick driverController = new Joystick(Constants.OperatorConstants.DRIVER_USB_PORT);
 
-
- // private int rotationXboxAxis = 4;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -128,9 +131,9 @@ public class RobotContainer
   {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    //new JoystickButton(driverController, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
+    new JoystickButton(driverController, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
 
-    //new JoystickButton(driverController, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
+    new JoystickButton(driverController, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     new JoystickButton(shooterController, 4).whileTrue(new RunIntake(intakeMotors)
                                                       .alongWith(new RunMagazine(magazineMotors))
@@ -144,6 +147,10 @@ public class RobotContainer
                                                                                 ); 
 
     new JoystickButton(shooterController,1).whileTrue(new PukeIntake(intakeMotors));  //reverses intake motors
+
+    new JoystickButton(shooterController,6).whileTrue(new ServoDeflectorOn(servoMotor)); // servo to deflect position
+    
+    new JoystickButton(shooterController,3).whileTrue(new ServoDeflectorOff(servoMotor)); 
   }
 
   /**

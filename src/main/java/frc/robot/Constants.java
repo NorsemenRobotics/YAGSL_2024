@@ -67,11 +67,11 @@ public final class Constants
     public static final int MAGAZINE_MOTOR_CAN_ID = 35;
     public static final int MAGAZINE_MOTOR_CURRENT_LIMIT = 20;
 
-    public static final double MAGAZINE_INTAKE_SPEED = 0.78;          
-    public static final double MAGAZINE_STAGE_SPEED = -0.2;           //back off note speed
+    public static final double MAGAZINE_INTAKE_VOLTS = 9.5;          
+    public static final double MAGAZINE_STAGE_VOLTS = -2.45;           //back off note speed
     public static final long MAGAZINE_STAGE_RUN_TIME_MS = 150;        //time of backing off note
     public static final long MAGAZINE_SHOOT_RUN_TIME_MS = 1000;       //time of shooting note
-    public static final double MAGAZINE_FEED_TO_SHOOTER_SPEED = 0.78; //speed to feed note to shooter
+    public static final double MAGAZINE_FEED_TO_SHOOTER_VOLTS = 9.5; //speed to feed note to shooter
 
     public static final double SPEAKER_SHOOT_SPEED = 0.63; // was 0.63
 
@@ -84,9 +84,9 @@ public final class Constants
 
 public static class ServoConstants
 {
-  public static final int DEFLECTOR_SERVO_PORT = 0;
-  public static final double DEFLECTOR_SERVO_ON_ANGLE = 80;
-  public static final double DEFLECTOR_SERVO_OFF_ANGLE = 60;
+  public static final int DEFLECTOR_SERVO_PORT = 9;
+  public static final double DEFLECTOR_SERVO_ON_ANGLE = 130; // 100 is about parallel; increasing degrees bring deflector more toward shooter
+  public static final double DEFLECTOR_SERVO_OFF_ANGLE = 0;
 
 }
 

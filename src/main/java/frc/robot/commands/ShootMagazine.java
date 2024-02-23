@@ -34,7 +34,9 @@ public class ShootMagazine extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_MagazineMotor.setMagazineMotor(Constants.MotorConstants.MAGAZINE_FEED_TO_SHOOTER_SPEED);
+
+    //TODO:  Here the value appears to work sending to command
+    m_MagazineMotor.setMagazineMotor(Constants.MotorConstants.MAGAZINE_FEED_TO_SHOOTER_VOLTS);
   }
 
   // Called once the command ends or is interrupted.

@@ -36,7 +36,7 @@ public class StageMagazine extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_MagazineMotor.setMagazineMotor(Constants.MotorConstants.MAGAZINE_STAGE_SPEED);
+    m_MagazineMotor.setMagazineMotor(Constants.MotorConstants.MAGAZINE_STAGE_VOLTS);
   }
 
   // Called once the command ends or is interrupted.

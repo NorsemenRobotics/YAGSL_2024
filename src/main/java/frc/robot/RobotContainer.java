@@ -8,16 +8,16 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.XboxController;
+//import edu.wpi.first.wpilibj.RobotBase;
+//import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
+//import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+//import edu.wpi.first.wpilibj2.command.Commands;
+//import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
+//import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -26,7 +26,7 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.RunIntake;
-import frc.robot.commands.IdleIntake;
+//import frc.robot.commands.IdleIntake;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.MagazineSubsystem;
 import frc.robot.commands.RunMagazine;
@@ -36,13 +36,13 @@ import frc.robot.commands.StageMagazine;
 import frc.robot.commands.StopShooter;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ShootAmp;
-import frc.robot.commands.Wait;
+//import frc.robot.commands.Wait;
 import frc.robot.commands.ShootMagazine;
 import frc.robot.commands.PukeIntake;
 import frc.robot.subsystems.ServoSubsystem;
 
 import edu.wpi.first.cameraserver.CameraServer;
-
+import edu.wpi.first.cscore.UsbCamera;
 
 import java.io.File;
 
@@ -93,7 +93,10 @@ public class RobotContainer
   {
     
     // Creates UsbCamera and MjpegServer and connects them
-    CameraServer.startAutomaticCapture();
+    // CameraServer.startAutomaticCapture();
+    UsbCamera camera = CameraServer.startAutomaticCapture();
+                camera.setResolution(160, 120);
+
     
     // Configure the trigger bindings
     configureBindings();
@@ -105,7 +108,7 @@ public class RobotContainer
         drivebase,
         () -> MathUtil.applyDeadband(-driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(-driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
-        () -> -driverController.getRawAxis(2), 
+        () -> MathUtil.applyDeadband(-driverController.getRawAxis(2) * OperatorConstants.TURN_FACTOR, OperatorConstants.LEFT_Z_DEADBAND),
         () -> false); // true = field-centric
 
 //TODO all of the joystick inputs are here, can the intake from getLeftX()

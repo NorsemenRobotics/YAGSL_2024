@@ -46,8 +46,10 @@ public final class Constants
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.01;
     public static final double LEFT_Y_DEADBAND = 0.01;
+    public static final double LEFT_Z_DEADBAND = 0.01;
     public static final double RIGHT_X_DEADBAND = 0.01;
     public static final double TURN_CONSTANT = 0.75;
+    public static final double TURN_FACTOR = 0.825;
 
     public static final int DRIVER_USB_PORT = 0;
     public static final int SHOOTER_USB_PORT = 1;
@@ -74,10 +76,10 @@ public final class Constants
     public static final double MAGAZINE_FEED_TO_SHOOTER_VOLTS = 9.5; //speed to feed note to shooter
 
     public static final double SPEAKER_SHOOT_SPEED = 0.63; // was 0.63
-    public static final double SPEAKER_SHOOT_VELOCITY = 5000;
+    public static final double SPEAKER_SHOOT_VELOCITY = 7000;
     public static final double SPEAKER_SHOOT_VOLTAGE = 7.6;
 
-    public static final double AMP_SHOOT_VELOCITY = 2000;
+    public static final double AMP_SHOOT_VELOCITY = 4300; // was 4400
 
     public static final double INTAKE_INTAKE_VOLTS = 9.3;            //pickup off the floor
     public static final double INTAKE_PUKE_VOLTS = 9.3; 
@@ -89,7 +91,7 @@ public final class Constants
 public static class ServoConstants
 {
   public static final int DEFLECTOR_SERVO_PORT = 9;
-  public static final double DEFLECTOR_SERVO_ON_ANGLE = 130; // 100 is about parallel; increasing degrees bring deflector more toward shooter
+  public static final double DEFLECTOR_SERVO_ON_ANGLE = 123; // (123/4300) working; increasing degrees bring deflector more toward shooter
   public static final double DEFLECTOR_SERVO_OFF_ANGLE = 0;
 
 }

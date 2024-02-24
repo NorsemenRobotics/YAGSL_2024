@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
+//import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
 
@@ -35,14 +35,14 @@ CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConsta
     m_leftShooter_motor.setSmartCurrentLimit(Constants.MotorConstants.SHOOTER_MOTOR_CURRENT_LIMIT);
     m_leftShooter_motor.burnFlash();
 
-    Timer.delay(0.2);
+    Timer.delay(0.2); // add delay so burnFlash() can complete
 
     m_rightShooter_motor.restoreFactoryDefaults();
     m_rightShooter_motor.setIdleMode(CANSparkMax.IdleMode.kCoast);
     m_rightShooter_motor.setSmartCurrentLimit(Constants.MotorConstants.SHOOTER_MOTOR_CURRENT_LIMIT);
     m_rightShooter_motor.burnFlash();
 
-     Timer.delay(0.2);
+    Timer.delay(0.2); // add delay so burnFlash() can complete
 /**
      * In order to use PID functionality for a controller, a SparkPIDController object
      * is constructed by calling the getPIDController() method on an existing

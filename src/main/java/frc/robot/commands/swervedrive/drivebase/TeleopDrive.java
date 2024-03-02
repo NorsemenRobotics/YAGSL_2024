@@ -5,7 +5,7 @@
 package frc.robot.commands.swervedrive.drivebase;
 
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -32,7 +32,7 @@ public class TeleopDrive extends Command
 
   private boolean driveFieldCentric;
 
-  GenericHID shooterController = new GenericHID(Constants.OperatorConstants.SHOOTER_USB_PORT);
+  Joystick driverController = new Joystick(Constants.OperatorConstants.DRIVER_USB_PORT);
 
   /**
    * Creates a new ExampleCommand.
@@ -70,7 +70,8 @@ public class TeleopDrive extends Command
     SmartDashboard.putNumber("vY", yVelocity);
     SmartDashboard.putNumber("omega", angVelocity);
 
-    driveFieldCentric = shooterController.getRawButton(9);
+    //retrieve button, and invert it
+    driveFieldCentric = !driverController.getRawButton(2);
 
     // Drive using raw values.
     //swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),

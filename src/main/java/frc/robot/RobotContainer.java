@@ -79,7 +79,7 @@ public class RobotContainer
   
 
 
-  GenericHID shooterController = new GenericHID(Constants.OperatorConstants.SHOOTER_USB_PORT);
+  Joystick shooterController = new Joystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   //XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
@@ -94,9 +94,10 @@ public class RobotContainer
     
     // Creates UsbCamera and MjpegServer and connects them
     // CameraServer.startAutomaticCapture();
-    UsbCamera camera = CameraServer.startAutomaticCapture();
-                camera.setResolution(160, 120);
-
+    UsbCamera camera0 = CameraServer.startAutomaticCapture(0);
+    UsbCamera camera1 = CameraServer.startAutomaticCapture(1);
+                camera0.setResolution(160, 120);
+                camera1.setResolution(160, 120);
     
     // Configure the trigger bindings
     configureBindings();
@@ -136,24 +137,24 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     // ZERO GYRO
-    new JoystickButton(driverController, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
+    new JoystickButton(driverController, 7).onTrue((new InstantCommand(drivebase::zeroGyro)));
     
     // LOCK DRIVE
     new JoystickButton(driverController, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     // RUN INTAKE/MAGAZINE FOR FLOOR PICKUP
-    new JoystickButton(shooterController, 4).whileTrue(new RunIntake(intakeMotors)
+    new JoystickButton(shooterController, 11).whileTrue(new RunIntake(intakeMotors)
                                                       .alongWith(new RunMagazine(magazineMotors))
                                                                                 ); 
     // SHOOT SPEAKER
-    new JoystickButton(shooterController, 5).onTrue(new ServoDeflectorOff(servoMotor)
+    new JoystickButton(shooterController, 7).onTrue(new ServoDeflectorOff(servoMotor)
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootSpeaker(shooterMotors)) // spin up shooter motors -- built in timer                               
                                                       .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer
                                                       .andThen(new StopShooter(shooterMotors))  // stop shooter motors
                                                                                  ); 
     // SHOOT AMP
-    new JoystickButton(shooterController, 2).onTrue(new ServoDeflectorOn(servoMotor)
+    new JoystickButton(shooterController, 9).onTrue(new ServoDeflectorOn(servoMotor)
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootAmp(shooterMotors)) // spin up shooter motors -- built in timer    
                                                       .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer
@@ -162,11 +163,11 @@ public class RobotContainer
                                                                                 ); 
 
     // PUKE INTAKE
-    new JoystickButton(shooterController,1).whileTrue(new PukeIntake(intakeMotors));  //reverses intake motors
+    new JoystickButton(shooterController,8).whileTrue(new PukeIntake(intakeMotors));  //reverses intake motors
 
     //TODO: Servo test buttons.  Delete this
-    new JoystickButton(shooterController,6).whileTrue(new ServoDeflectorOn(servoMotor)); // servo to deflect position
-    new JoystickButton(shooterController,3).whileTrue(new ServoDeflectorOff(servoMotor)); 
+    new JoystickButton(shooterController,10).whileTrue(new ServoDeflectorOn(servoMotor)); // servo to deflect position
+    new JoystickButton(shooterController,12).whileTrue(new ServoDeflectorOff(servoMotor)); // servo to retract position
   }
 
   /**

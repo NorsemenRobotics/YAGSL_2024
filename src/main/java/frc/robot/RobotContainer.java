@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.GenericHID;
+//import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.RobotBase;
 //import edu.wpi.first.wpilibj.XboxController;
@@ -40,6 +40,9 @@ import frc.robot.commands.ShootAmp;
 import frc.robot.commands.ShootMagazine;
 import frc.robot.commands.PukeIntake;
 import frc.robot.subsystems.ServoSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.commands.ExtendClimber;
+import frc.robot.commands.RetractClimber;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -68,6 +71,8 @@ public class RobotContainer
   private final MagazineSubsystem magazineMotors = new MagazineSubsystem();
 
   private final ServoSubsystem servoMotor = new ServoSubsystem();
+
+  private final ClimberSubsystem climberMotors = new ClimberSubsystem();
   
   
 
@@ -75,7 +80,6 @@ public class RobotContainer
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
 
-  // Creates UsbCamera and MjpegServer [1] and connects them
   
 
 
@@ -147,14 +151,16 @@ public class RobotContainer
                                                       .alongWith(new RunMagazine(magazineMotors))
                                                                                 ); 
     // SHOOT SPEAKER
-    new JoystickButton(shooterController, 7).onTrue(new ServoDeflectorOff(servoMotor)
+    new JoystickButton(shooterController, 7).onTrue(new InstantCommand(drivebase::lock, drivebase)
+                                                      .andThen(new ServoDeflectorOff(servoMotor))
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootSpeaker(shooterMotors)) // spin up shooter motors -- built in timer                               
                                                       .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer
                                                       .andThen(new StopShooter(shooterMotors))  // stop shooter motors
                                                                                  ); 
     // SHOOT AMP
-    new JoystickButton(shooterController, 9).onTrue(new ServoDeflectorOn(servoMotor)
+    new JoystickButton(shooterController, 9).onTrue(new InstantCommand(drivebase::lock, drivebase)
+                                                      .andThen(new ServoDeflectorOn(servoMotor))
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootAmp(shooterMotors)) // spin up shooter motors -- built in timer    
                                                       .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer
@@ -168,6 +174,10 @@ public class RobotContainer
     //TODO: Servo test buttons.  Delete this
     new JoystickButton(shooterController,10).whileTrue(new ServoDeflectorOn(servoMotor)); // servo to deflect position
     new JoystickButton(shooterController,12).whileTrue(new ServoDeflectorOff(servoMotor)); // servo to retract position
+
+    // OPERATE CLIMBER
+    new JoystickButton(shooterController,6).whileTrue(new ExtendClimber(climberMotors)); // extend climber
+    new JoystickButton(shooterController,4).whileTrue(new RetractClimber(climberMotors)); // retract climber
   }
 
   /**

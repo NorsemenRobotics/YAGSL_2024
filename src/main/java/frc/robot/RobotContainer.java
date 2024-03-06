@@ -8,6 +8,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Filesystem;
 //import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.RobotBase;
 //import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,7 +28,7 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.RunIntake;
-//import frc.robot.commands.IdleIntake;
+import frc.robot.commands.IdleIntake;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.MagazineSubsystem;
 import frc.robot.commands.RunMagazine;
@@ -48,6 +50,13 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 
 import java.io.File;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+//import com.pathplanner.lib.commands.PathPlannerAuto;
+//import com.pathplanner.lib.path.GoalEndState;
+//import com.pathplanner.lib.path.PathConstraints;
+//import com.pathplanner.lib.path.PathPlannerPath;
 
 
 //import frc.robot.commands.swervedrive.drivebase.CustomDrive3688;
@@ -73,29 +82,31 @@ public class RobotContainer
   private final ServoSubsystem servoMotor = new ServoSubsystem();
 
   private final ClimberSubsystem climberMotors = new ClimberSubsystem();
+
+  private final SendableChooser<Command> autoChooser;
   
   
-
-  // CommandJoystick rotationController = new CommandJoystick(1);
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  //CommandJoystick shooterController = new CommandJoystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
-
-  
-
-
   Joystick shooterController = new Joystick(Constants.OperatorConstants.SHOOTER_USB_PORT);
-
-  // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
-  //XboxController driverXbox = new XboxController(Constants.OperatorConstants.DRIVER_USB_PORT);
-
   Joystick driverController = new Joystick(Constants.OperatorConstants.DRIVER_USB_PORT);
+
+  
+  
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer()
   {
-    
+    //Register commands for Pathplanner/autonomous
+    NamedCommands.registerCommand("ServoDeflectorOff", new ServoDeflectorOff(servoMotor));
+    NamedCommands.registerCommand("StageMagazine", new StageMagazine(magazineMotors));
+    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker(shooterMotors));
+    NamedCommands.registerCommand("ShootMagazine", new ShootMagazine(magazineMotors));
+    NamedCommands.registerCommand("StopShooter", new StopShooter(shooterMotors));
+    NamedCommands.registerCommand("ServoDeflectorOn", new ServoDeflectorOn(servoMotor));
+    NamedCommands.registerCommand("ShootAmp", new ShootAmp(shooterMotors));
+
+
     // Creates UsbCamera and MjpegServer and connects them
     // CameraServer.startAutomaticCapture();
     UsbCamera camera0 = CameraServer.startAutomaticCapture(0);
@@ -125,6 +136,14 @@ public class RobotContainer
      drivebase.setDefaultCommand(teleopRobotCentric);
 
      //intakeMotors.setDefaultCommand(idleIntake);
+
+    // Build an auto chooser. This will use Commands.none() as the default option.
+    autoChooser = AutoBuilder.buildAutoChooser();
+
+    // Another option that allows you to specify the default auto by its name
+    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
      
 
   }
@@ -147,11 +166,11 @@ public class RobotContainer
     new JoystickButton(driverController, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
 
     // RUN INTAKE/MAGAZINE FOR FLOOR PICKUP
-    new JoystickButton(shooterController, 11).whileTrue(new RunIntake(intakeMotors)
+    new JoystickButton(shooterController, 1).whileTrue(new RunIntake(intakeMotors)
                                                       .alongWith(new RunMagazine(magazineMotors))
                                                                                 ); 
     // SHOOT SPEAKER
-    new JoystickButton(shooterController, 7).onTrue(new InstantCommand(drivebase::lock, drivebase)
+    new JoystickButton(driverController, 6).onTrue(new InstantCommand(drivebase::lock, drivebase)
                                                       .andThen(new ServoDeflectorOff(servoMotor))
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootSpeaker(shooterMotors)) // spin up shooter motors -- built in timer                               
@@ -159,7 +178,7 @@ public class RobotContainer
                                                       .andThen(new StopShooter(shooterMotors))  // stop shooter motors
                                                                                  ); 
     // SHOOT AMP
-    new JoystickButton(shooterController, 9).onTrue(new InstantCommand(drivebase::lock, drivebase)
+    new JoystickButton(driverController, 4).onTrue(new InstantCommand(drivebase::lock, drivebase)
                                                       .andThen(new ServoDeflectorOn(servoMotor))
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootAmp(shooterMotors)) // spin up shooter motors -- built in timer    
@@ -169,7 +188,7 @@ public class RobotContainer
                                                                                 ); 
 
     // PUKE INTAKE
-    new JoystickButton(shooterController,8).whileTrue(new PukeIntake(intakeMotors));  //reverses intake motors
+    new JoystickButton(shooterController,2).whileTrue(new PukeIntake(intakeMotors));  //reverses intake motors
 
     //TODO: Servo test buttons.  Delete this
     new JoystickButton(shooterController,10).whileTrue(new ServoDeflectorOn(servoMotor)); // servo to deflect position
@@ -178,6 +197,9 @@ public class RobotContainer
     // OPERATE CLIMBER
     new JoystickButton(shooterController,6).whileTrue(new ExtendClimber(climberMotors)); // extend climber
     new JoystickButton(shooterController,4).whileTrue(new RetractClimber(climberMotors)); // retract climber
+
+    //IDLE INTAKE
+    new JoystickButton(driverController,1).whileTrue(new IdleIntake(intakeMotors));
   }
 
   /**
@@ -189,7 +211,10 @@ public class RobotContainer
   {
     // An example command will be run in autonomous
     // was crashing code referencing path only; had to use pathplanner Autos to create command to follow path
-    return drivebase.getAutonomousCommand("New Auto");
+    //return drivebase.getAutonomousCommand("New Auto");
+
+    //added per pathplanner docs to choose the selected auton routine from the dashboard
+    return autoChooser.getSelected();
   }
 
   public void setDriveMode()

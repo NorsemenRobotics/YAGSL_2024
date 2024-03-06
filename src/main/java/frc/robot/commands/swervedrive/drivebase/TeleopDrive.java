@@ -32,7 +32,7 @@ public class TeleopDrive extends Command
 
   private boolean driveFieldCentric;
 
-  Joystick driverController = new Joystick(Constants.OperatorConstants.DRIVER_USB_PORT);
+  Joystick driverController = new Joystick(Constants.OperatorConstants.DRIVER_USB_PORT); // here to read button for field-centric
 
   /**
    * Creates a new ExampleCommand.

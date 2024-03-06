@@ -42,6 +42,9 @@ public final class Constants
 
   public static class OperatorConstants
   {
+    
+    // Casey-proof robot
+    public static final double CASEY_FACTOR = 1;
 
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.01;
@@ -87,6 +90,7 @@ public final class Constants
 
     public static final double INTAKE_INTAKE_VOLTS = 9.3;            //pickup off the floor
     public static final double INTAKE_PUKE_VOLTS = 9.3; 
+    public static final double INTAKE_IDLE_SPEED = 0.2;
 
     public static final long SHOOTER_SPOOLUP_WAIT_TIME_MS = 1000;
 

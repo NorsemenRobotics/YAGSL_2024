@@ -29,6 +29,7 @@ import frc.robot.commands.swervedrive.drivebase.TeleopDrive;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.IdleIntake;
+import frc.robot.commands.StopIntake;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.MagazineSubsystem;
 import frc.robot.commands.RunMagazine;
@@ -105,7 +106,9 @@ public class RobotContainer
     NamedCommands.registerCommand("StopShooter", new StopShooter(shooterMotors));
     NamedCommands.registerCommand("ServoDeflectorOn", new ServoDeflectorOn(servoMotor));
     NamedCommands.registerCommand("ShootAmp", new ShootAmp(shooterMotors));
-
+    NamedCommands.registerCommand("RunIntake", new RunIntake(intakeMotors));
+    NamedCommands.registerCommand("StopIntake", new StopIntake(intakeMotors));
+    NamedCommands.registerCommand("RunMagazine", new RunMagazine(magazineMotors));
 
     // Creates UsbCamera and MjpegServer and connects them
     // CameraServer.startAutomaticCapture();

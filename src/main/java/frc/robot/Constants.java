@@ -44,7 +44,7 @@ public final class Constants
   {
     
     // Casey-proof robot
-    public static final double CASEY_FACTOR = 1;
+    public static final double DRIVER_FACTOR = 1;
 
     // Joystick Deadband
     public static final double LEFT_X_DEADBAND = 0.01;
@@ -88,7 +88,7 @@ public final class Constants
   
     public static final double AMP_SHOOT_VELOCITY = 4300; // was 4400 -- 4300 works
 
-    public static final double INTAKE_INTAKE_VOLTS = 9.3;            //pickup off the floor
+    public static final double INTAKE_INTAKE_VOLTS = 10.5;            //pickup off the floor
     public static final double INTAKE_PUKE_VOLTS = 9.3; 
     public static final double INTAKE_IDLE_SPEED = 0.2;
 

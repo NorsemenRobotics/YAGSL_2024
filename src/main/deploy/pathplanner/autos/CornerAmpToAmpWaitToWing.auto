@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.35,
-      "y": 5.54
+      "x": 1.4,
+      "y": 7.29
     },
     "rotation": 0.0
   },
@@ -16,9 +16,15 @@
           "data": {
             "commands": [
               {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpCornerToAmp"
+                }
+              },
+              {
                 "type": "named",
                 "data": {
-                  "name": "ServoDeflectorOff"
+                  "name": "ServoDeflectorOn"
                 }
               },
               {
@@ -43,6 +49,24 @@
                 "type": "named",
                 "data": {
                   "name": "StopShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ServoDeflectorOff"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 6.5
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AmpToWing"
                 }
               }
             ]

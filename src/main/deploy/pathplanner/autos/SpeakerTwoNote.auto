@@ -112,7 +112,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SpeakerToNote"
+            "pathName": "SpeakerToStageSafe"
           }
         }
       ]

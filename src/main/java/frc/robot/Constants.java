@@ -53,7 +53,7 @@ public final class Constants
     public static final double LEFT_Z_DEADBAND = 0.01;
     public static final double RIGHT_X_DEADBAND = 0.01;
     public static final double TURN_CONSTANT = 0.75;
-    public static final double TURN_FACTOR = 0.825;
+    public static final double TURN_FACTOR = 0.7; // was 0.825
 
     public static final int DRIVER_USB_PORT = 0;
     public static final int SHOOTER_USB_PORT = 1;
@@ -100,7 +100,7 @@ public final class Constants
 public static class ServoConstants
 {
   public static final int DEFLECTOR_SERVO_PORT = 9;
-  public static final double DEFLECTOR_SERVO_ON_ANGLE = 168; // increasing degrees bring deflector more toward shooter; 168=33 degrees
+  public static final double DEFLECTOR_SERVO_ON_ANGLE = 169; // increasing degrees bring deflector more toward shooter; 168=33 degrees
   public static final double DEFLECTOR_SERVO_OFF_ANGLE = 0;
 
 }

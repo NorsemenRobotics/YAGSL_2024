@@ -181,8 +181,7 @@ public class RobotContainer
                                                       .andThen(new StopShooter(shooterMotors))  // stop shooter motors
                                                                                  ); 
     // SHOOT AMP
-    new JoystickButton(driverController, 4).onTrue(new InstantCommand(drivebase::lock, drivebase)
-                                                      .andThen(new ServoDeflectorOn(servoMotor))
+    new JoystickButton(driverController, 4).onTrue((new ServoDeflectorOn(servoMotor))
                                                       .andThen(new StageMagazine(magazineMotors)) // position note down -- built in timer
                                                       .andThen(new ShootAmp(shooterMotors)) // spin up shooter motors -- built in timer    
                                                       .andThen(new ShootMagazine(magazineMotors)) // shoots magazine -- built in timer

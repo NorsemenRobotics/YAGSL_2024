@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.4,
-      "y": 7.29
+      "y": 7.19
     },
     "rotation": 0.0
   },
@@ -36,7 +36,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "ShootSpeaker"
+                  "name": "ShootAmp"
                 }
               },
               {

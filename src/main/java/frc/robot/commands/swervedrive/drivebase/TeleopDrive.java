@@ -71,7 +71,7 @@ public class TeleopDrive extends Command
     SmartDashboard.putNumber("omega", angVelocity);
 
     //retrieve button, and invert it
-    driveFieldCentric = !driverController.getRawButton(2);
+    driveFieldCentric = !driverController.getRawButton(11);
 
     // Drive using raw values.
     //swerve.drive(new Translation2d(xVelocity * swerve.maximumSpeed, yVelocity * swerve.maximumSpeed),

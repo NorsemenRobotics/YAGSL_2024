@@ -127,7 +127,12 @@ public class RobotContainer
         drivebase,
         () -> MathUtil.applyDeadband(-driverController.getRawAxis(1), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(-driverController.getRawAxis(0), OperatorConstants.LEFT_X_DEADBAND),
-        () -> MathUtil.applyDeadband(-driverController.getRawAxis(2) * OperatorConstants.TURN_FACTOR, OperatorConstants.LEFT_Z_DEADBAND),
+        () -> MathUtil.applyDeadband(-(
+                                        (driverController.getRawAxis(2)) *    // Cube the input for joystick curve
+                                        (driverController.getRawAxis(2)) *
+                                        (driverController.getRawAxis(2)) *
+                                        Constants.OperatorConstants.TURN_FACTOR  // Factor to moderate turn speed
+                                      ), OperatorConstants.LEFT_Z_DEADBAND),
         () -> false); // true = field-centric
 
 //TODO all of the joystick inputs are here, can the intake from getLeftX()

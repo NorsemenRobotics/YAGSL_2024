@@ -52,8 +52,8 @@ public final class Constants
     public static final double LEFT_Y_DEADBAND = 0.01;
     public static final double LEFT_Z_DEADBAND = 0.01;
     public static final double RIGHT_X_DEADBAND = 0.01;
-    public static final double TURN_CONSTANT = 0.75;
-    public static final double TURN_FACTOR = 0.7; // was 0.825
+    //public static final double TURN_CONSTANT = 0.75;
+    public static final double TURN_FACTOR = 1; // was 0.825
 
     public static final int DRIVER_USB_PORT = 0;
     public static final int SHOOTER_USB_PORT = 1;
@@ -93,14 +93,14 @@ public final class Constants
     public static final double INTAKE_PUKE_VOLTS = 9.3; 
     public static final double INTAKE_IDLE_SPEED = 0.2;
 
-    public static final long SHOOTER_SPOOLUP_WAIT_TIME_MS = 1000;
+    public static final long SHOOTER_SPOOLUP_WAIT_TIME_MS = 500; // time to wait for shooter wheel spoolup.  was 1000
 
   }
 
 public static class ServoConstants
 {
   public static final int DEFLECTOR_SERVO_PORT = 9;
-  public static final double DEFLECTOR_SERVO_ON_ANGLE = 169; // increasing degrees bring deflector more toward shooter; 168=33 degrees
+  public static final double DEFLECTOR_SERVO_ON_ANGLE = 169; // increasing degrees bring deflector more toward shooter; 168 was 33 degrees
   public static final double DEFLECTOR_SERVO_OFF_ANGLE = 0;
 
 }

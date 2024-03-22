@@ -46,6 +46,7 @@ import frc.robot.subsystems.ServoSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.commands.ExtendClimber;
 import frc.robot.commands.RetractClimber;
+import frc.robot.subsystems.NoteSensor;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -83,6 +84,8 @@ public class RobotContainer
   private final ServoSubsystem servoMotor = new ServoSubsystem();
 
   private final ClimberSubsystem climberMotors = new ClimberSubsystem();
+
+  private final NoteSensor noteSensor = new NoteSensor();
 
   private final SendableChooser<Command> autoChooser;
   
